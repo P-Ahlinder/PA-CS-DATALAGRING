@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PA_Course_Submission.Models.Entities;
+
 namespace PA_Course_Submission.Contexts;
 
 internal class DataContext : DbContext
@@ -28,4 +30,6 @@ internal class DataContext : DbContext
     }
     #endregion
 
+    public DbSet<CustomerEntity> Customers { get; set; }
+    public DbSet<CaseEntity> Cases { get; set; }
 }
