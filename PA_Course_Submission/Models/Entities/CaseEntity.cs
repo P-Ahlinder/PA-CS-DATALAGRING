@@ -1,26 +1,19 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PA_Course_Submission.Models.Entities;
 
 internal class CaseEntity
 {
     [Key]
-    [Column (TypeName = "int(10,1)")]
-    public int CaseId       { get; set; }
-    public DateTime RegDate { get; set; } = DateTime.Now;
+    public int Id                   { get; set; }
+    public DateTime RegDate         { get; set; } = DateTime.Now;
+    public string Title             { get; set; } = null!;
+    public string Description       { get; set; } = null!;
+    public string Status            { get; set; } = null!;
+    public string? Comment          { get; set; }
 
-    [Column (TypeName = "nvarchar(250)")]
-    public string Description   { get; set; }     = null!;
-    [Column(TypeName = "nvarchar(10)")]
-    public string Status_Ongoing   { get; set; } = null!;
-    [Column(TypeName = "nvarchar(10)")]
-    public string Status_Unsolved { get; set; }  = null!;
-    [Column(TypeName = "nvarchar(10)")]
-    public string Status_Solved { get; set; }    = null!;
-
-    [Column(TypeName = "nvarchar(150)")]
-    public string? Comment { get; set; }
+    public ICollection<CustomerEntity> Customers { get; set; } = new HashSet<CustomerEntity>();
+    
 
 }
 

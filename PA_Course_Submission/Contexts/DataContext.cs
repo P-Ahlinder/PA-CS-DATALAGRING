@@ -7,7 +7,7 @@ internal class DataContext : DbContext
 {
     private readonly string _connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ahlin\source\repos\PA_Course_Submission\PA_Course_Submission\Data\local_db.mdf;Integrated Security=True;Connect Timeout=30";
 
-    #region Data
+    #region Construct//Overrides//Options
 
     public DataContext()
     {
@@ -18,10 +18,6 @@ internal class DataContext : DbContext
 
     }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        base.OnModelCreating(modelBuilder);
-    }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -30,6 +26,11 @@ internal class DataContext : DbContext
     }
     #endregion
 
-    public DbSet<CustomerEntity> Customers { get; set; }
-    public DbSet<CaseEntity> Cases { get; set; }
+    #region Entities
+    public DbSet<CaseEntity>        Cases      { get; set; } = null!;
+    public DbSet<CustomerEntity>    Customers  { get; set; } = null!;
+    public DbSet<AddressEntity>     Addresses  { get; set; } = null!;   
+
+    #endregion
+
 }

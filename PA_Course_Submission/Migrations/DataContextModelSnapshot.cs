@@ -22,37 +22,58 @@ namespace PA_Course_Submission.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("PA_Course_Submission.Models.Entities.AddressEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostalCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StreetName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Addresses");
+                });
+
             modelBuilder.Entity("PA_Course_Submission.Models.Entities.CaseEntity", b =>
                 {
-                    b.Property<int>("CaseId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int(10,1)");
+                        .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CaseId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Comment")
-                        .HasColumnType("nvarchar(150)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(250)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("RegDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Status_Ongoing")
+                    b.Property<string>("Status")
                         .IsRequired()
-                        .HasColumnType("nvarchar(10)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Status_Solved")
+                    b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(10)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Status_Unsolved")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(10)");
-
-                    b.HasKey("CaseId");
+                    b.HasKey("Id");
 
                     b.ToTable("Cases");
                 });
@@ -65,28 +86,34 @@ namespace PA_Course_Submission.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("AddressId")
+                        .HasColumnType("int");
+
                     b.Property<int>("CaseId")
-                        .HasColumnType("int(10,1)");
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("MobilePhone")
-                        .HasColumnType("char(13)");
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AddressId");
 
                     b.HasIndex("CaseId");
 
@@ -98,13 +125,31 @@ namespace PA_Course_Submission.Migrations
 
             modelBuilder.Entity("PA_Course_Submission.Models.Entities.CustomerEntity", b =>
                 {
+                    b.HasOne("PA_Course_Submission.Models.Entities.AddressEntity", "Address")
+                        .WithMany("CustomerEntities")
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("PA_Course_Submission.Models.Entities.CaseEntity", "Case")
-                        .WithMany()
+                        .WithMany("Customers")
                         .HasForeignKey("CaseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Address");
+
                     b.Navigation("Case");
+                });
+
+            modelBuilder.Entity("PA_Course_Submission.Models.Entities.AddressEntity", b =>
+                {
+                    b.Navigation("CustomerEntities");
+                });
+
+            modelBuilder.Entity("PA_Course_Submission.Models.Entities.CaseEntity", b =>
+                {
+                    b.Navigation("Customers");
                 });
 #pragma warning restore 612, 618
         }

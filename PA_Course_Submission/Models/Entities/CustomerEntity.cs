@@ -1,6 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace PA_Course_Submission.Models.Entities;
 
@@ -8,19 +7,18 @@ namespace PA_Course_Submission.Models.Entities;
 internal class CustomerEntity
 {
     [Key]
-    public int Id               { get; set; }
+    public int Id                   { get; set; }
+    public string FirstName         { get; set; } = null!;
+    public string LastName          { get; set; } = null!;
+    public string Description       { get; set; } = null!;
+    public string Email             { get; set; } = null!;
+    public string? PhoneNumber      { get; set; }
 
-    [StringLength(50)]
-    public string FirstName     { get; set; } = null!;
+    public int CaseId               { get; set; }
+    public CaseEntity Case          { get; set; } = null!;
 
-    [StringLength(50)]
-    public string LastName      { get; set; } = null!;
+    public int AddressId            { get; set; }
+    public AddressEntity Address    { get; set; } = null!;
 
-    [StringLength(50)]
-    public string Email         { get; set; } = null!;
 
-    [Column (TypeName = "char(13)")]
-    public string? MobilePhone  { get; set; }
-    public int CaseId           { get; set; }
-    public CaseEntity Case      { get; set; } = null!;
 }
