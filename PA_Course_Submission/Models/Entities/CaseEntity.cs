@@ -11,8 +11,9 @@ internal class CaseEntity
     public string Description       { get; set; } = null!;
     public string Status            { get; set; } = null!;
     public string? Comment          { get; set; }
+    public int CustomerID           { get; set; }
 
-    public ICollection<CustomerEntity> Customers { get; set; } = new HashSet<CustomerEntity>();
+    public CustomerEntity Customer { get; set; }  = null!;
     
 
 }

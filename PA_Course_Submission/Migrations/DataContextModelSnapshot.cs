@@ -58,6 +58,9 @@ namespace PA_Course_Submission.Migrations
                     b.Property<string>("Comment")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("CustomerID")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -75,6 +78,8 @@ namespace PA_Course_Submission.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CustomerID");
+
                     b.ToTable("Cases");
                 });
 
@@ -88,13 +93,6 @@ namespace PA_Course_Submission.Migrations
 
                     b.Property<int>("AddressId")
                         .HasColumnType("int");
-
-                    b.Property<int>("CaseId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -115,12 +113,21 @@ namespace PA_Course_Submission.Migrations
 
                     b.HasIndex("AddressId");
 
-                    b.HasIndex("CaseId");
-
                     b.HasIndex("Email")
                         .IsUnique();
 
                     b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("PA_Course_Submission.Models.Entities.CaseEntity", b =>
+                {
+                    b.HasOne("PA_Course_Submission.Models.Entities.CustomerEntity", "Customer")
+                        .WithMany("Cases")
+                        .HasForeignKey("CustomerID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("PA_Course_Submission.Models.Entities.CustomerEntity", b =>
@@ -131,15 +138,7 @@ namespace PA_Course_Submission.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PA_Course_Submission.Models.Entities.CaseEntity", "Case")
-                        .WithMany("Customers")
-                        .HasForeignKey("CaseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Address");
-
-                    b.Navigation("Case");
                 });
 
             modelBuilder.Entity("PA_Course_Submission.Models.Entities.AddressEntity", b =>
@@ -147,9 +146,9 @@ namespace PA_Course_Submission.Migrations
                     b.Navigation("CustomerEntities");
                 });
 
-            modelBuilder.Entity("PA_Course_Submission.Models.Entities.CaseEntity", b =>
+            modelBuilder.Entity("PA_Course_Submission.Models.Entities.CustomerEntity", b =>
                 {
-                    b.Navigation("Customers");
+                    b.Navigation("Cases");
                 });
 #pragma warning restore 612, 618
         }

@@ -14,13 +14,11 @@ while (MenuControl)
     switch (Console.ReadLine())
     {
         case "1":
-            ;
-            
+            await menu.SaveCaseAsync();
             break;
 
         case "2":
-            
-
+            menu.ShowAllCasesAsync();
             break;
 
         case "3":
