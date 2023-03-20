@@ -6,10 +6,12 @@ bool MenuControl = true;
 while (MenuControl)
 {
     Console.Clear();
+    Console.ForegroundColor = ConsoleColor.DarkYellow;
     Console.WriteLine("1. Skapa ett nytt ärende");
     Console.WriteLine("2. Visa alla ärenden");
     Console.WriteLine("3. Sök ärende via ID");
-    Console.WriteLine("4. Avsluta programmet");
+    Console.WriteLine("4. Visa/ ändra ärendestatus");
+    Console.WriteLine("5. Avsluta programmet");
 
     switch (Console.ReadLine())
     {
@@ -22,10 +24,14 @@ while (MenuControl)
             break;
 
         case "3":
-            
+            await menu.SearchSpecificCaseAsync();
             break;
 
         case "4":
+            await menu.UpdateSpecificCaseAsync();
+            break;
+
+        case "5":
             Console.WriteLine("Programmet avslutas..");
             MenuControl = false;
             break;
