@@ -5,7 +5,7 @@ namespace PA_Course_Submission.Contexts;
 
 internal class DataContext : DbContext
 {
-    private readonly string _connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ahlin\source\repos\PA_Course_Submission\PA_Course_Submission\Data\local_db.mdf;Integrated Security=True;Connect Timeout=30";
+    private readonly string _connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ahlin\Desktop\PA-CS-DATALAGRING\Database\anotherDB.mdf;Integrated Security=True;Connect Timeout=30";
 
     #region Construct//Overrides//Options
 
@@ -29,7 +29,7 @@ internal class DataContext : DbContext
     #region Entities
     public DbSet<CaseEntity>        Cases      { get; set; } = null!;
     public DbSet<CustomerEntity>    Customers  { get; set; } = null!;
-    public DbSet<AddressEntity>     Addresses  { get; set; } = null!;   
+    public DbSet<AddressEntity>     Addresses  { get; set; } = null!;
 
     #endregion
 
