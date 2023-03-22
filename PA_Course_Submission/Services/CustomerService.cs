@@ -14,9 +14,9 @@ internal class CustomerService
     {
         var _customerEntity = new CustomerEntity
         {
-            FirstName = customer.FirstName,
-            LastName = customer.LastName,
-            Email = customer.Email,
+            FirstName   = customer.FirstName,
+            LastName    = customer.LastName,
+            Email       = customer.Email,
             PhoneNumber = customer.PhoneNumber ?? "",
         };
 
@@ -31,7 +31,7 @@ internal class CustomerService
             {
                 StreetName = customer.StreeName,
                 PostalCode = customer.PostalCode,
-                City = customer.City,
+                City       = customer.City,
             };
 
         _context.Add(_customerEntity);

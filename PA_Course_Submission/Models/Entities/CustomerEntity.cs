@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PA_Course_Submission.Models.Entities;
 
@@ -14,11 +13,11 @@ internal class CustomerEntity
     public string   Email            { get; set; } = null!;
     public string?  PhoneNumber      { get; set; }
 
-    public int AddressId             { get; set; }
+    public int     AddressId                 { get; set; }
     public virtual AddressEntity Address     { get; set; } = null!;
 
 
-    public ICollection<CaseEntity> Cases { get; set; } = new HashSet<CaseEntity> ();
+    public ICollection<CaseEntity> Cases     { get; set; } = new HashSet<CaseEntity>();
 
 
 }

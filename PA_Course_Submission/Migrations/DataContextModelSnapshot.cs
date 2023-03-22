@@ -55,10 +55,7 @@ namespace PA_Course_Submission.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Comment")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("CustomerID")
+                    b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -78,7 +75,7 @@ namespace PA_Course_Submission.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerID");
+                    b.HasIndex("CustomerId");
 
                     b.ToTable("Cases");
                 });
@@ -123,7 +120,7 @@ namespace PA_Course_Submission.Migrations
                 {
                     b.HasOne("PA_Course_Submission.Models.Entities.CustomerEntity", "Customer")
                         .WithMany("Cases")
-                        .HasForeignKey("CustomerID")
+                        .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
